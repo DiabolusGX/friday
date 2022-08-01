@@ -90,18 +90,27 @@ const post = async (action) => {
 	// });
 };
 
-// check every 10 min if it's friday yet
+// check every 30 min if it's friday yet
 // and if bot has already posted reminder on this friday.
 setInterval(() => {
 	const d = new Date();
 	const day = d.getDay();
+	console.info(
+		`[${new Date().toISOString()}] [interval] Started interval, day = ${day}.`
+	);
 
 	// video scheduler
 	if (day == 6 && !reminded) {
 		post("post");
 		reminded = true;
+		console.info(
+			`[${new Date().toISOString()}] [interval] Published video post.`
+		);
 	}
-	if (day != 6) {
+	if (day != 6 && reminded == true) {
+		console.info(
+			`[${new Date().toISOString()}] [interval] Reseted reminder.`
+		);
 		reminded = false;
 	}
 
@@ -109,5 +118,11 @@ setInterval(() => {
 	if (dailyStory != day) {
 		post("story");
 		dailyStory = day;
+		console.info(
+			`[${new Date().toISOString()}] [interval] Published stories.`
+		);
 	}
-}, 600000);
+
+	console.info(`[${new Date().toISOString()}] Interval ended.`);
+	console.info(`--------------------------------------------`);
+}, 30 * 10 * 60 * 1000); // 30 min.
