@@ -1,5 +1,6 @@
-import { IgApiClient } from "instagram-private-api";
-import axios from "axios";
+require("dotenv").config();
+const { IgApiClient } = require("instagram-private-api");
+const axios = require("axios");
 
 let reminded = false;
 let dailyStory = 0;
@@ -134,4 +135,4 @@ setInterval(() => {
 
 	console.info(`[${new Date().toISOString()}] Interval ended.`);
 	console.info(`--------------------------------------------`);
-}, 30 * 10 * 60 * 1000); // 30 min.
+}, 30 * 60 * 1000); // 30 min.

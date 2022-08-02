@@ -1,7 +1,7 @@
 {
-  "type": "module",
   "dependencies": {
     "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
     "instagram-private-api": "^1.45.3"
   }
 }
