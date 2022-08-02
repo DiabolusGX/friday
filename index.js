@@ -1,8 +1,8 @@
 import { IgApiClient } from "instagram-private-api";
 import axios from "axios";
 
-var reminded = false;
-var dailyStory = 0;
+let reminded = false;
+let dailyStory = 0;
 const ig = new IgApiClient();
 const { username, password } = process.env;
 
@@ -35,40 +35,49 @@ const post = async (action) => {
 	switch (action) {
 		case "story":
 			console.log(`[${new Date().toISOString()}] posting story.`);
-			/***** PHOTO STORY *****/
-			const s1 = await ig.publish.story({
-				file: dailyBuffer,
-			});
-			/***** VIDEO STORY *****/
-			const s2 = await ig.publish.story({
-				video: videoBuffer,
-				coverImage: dailyBuffer,
-			});
-			console.log(
-				`[${new Date().toISOString()}] Image story - https://instagram.com/stories/${username}/${
-					s1.media.pk
-				}`
-			);
-			console.log(
-				`[${new Date().toISOString()}] Video story - https://instagram.com/stories/${username}/${
-					s2.media.pk
-				}`
-			);
+			try {
+				/***** PHOTO STORY *****/
+				const s1 = await ig.publish.story({
+					file: dailyBuffer,
+				});
+				/***** VIDEO STORY *****/
+				const s2 = await ig.publish.story({
+					video: videoBuffer,
+					coverImage: dailyBuffer,
+				});
+				console.log(
+					`[${new Date().toISOString()}] Image story - https://instagram.com/stories/${username}/${
+						s1.media.pk
+					}`
+				);
+				console.log(
+					`[${new Date().toISOString()}] Video story - https://instagram.com/stories/${username}/${
+						s2.media.pk
+					}`
+				);
+			} catch (err) {
+				dailyStory = 0;
+			}
 			break;
 
 		case "post":
 			console.log(`[${new Date().toISOString()}] posting video on feed.`);
-			/***** VIDEO *****/
-			const { media } = await ig.publish.video({
-				video: videoBuffer,
-				coverImage: imageBuffer,
-				caption: "pancho friday hai aaj \n\n\n #friday #fun #reminder",
-			});
-			console.log(
-				`[${new Date().toISOString()}] Video post - https://instagram.com/p/${
-					media.code
-				}`
-			);
+			try {
+				/***** VIDEO *****/
+				const { media } = await ig.publish.video({
+					video: videoBuffer,
+					coverImage: imageBuffer,
+					caption:
+						"pancho friday hai aaj \n\n\n #friday #fun #reminder",
+				});
+				console.log(
+					`[${new Date().toISOString()}] Video post - https://instagram.com/p/${
+						media.code
+					}`
+				);
+			} catch (err) {
+				reminded = false;
+			}
 			break;
 
 		default:
