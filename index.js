@@ -28,7 +28,7 @@ const post = async (action) => {
 	const videoBuffer = Buffer.from(videoResp.data, "utf-8");
 
 	ig.state.generateDevice(username);
-	await ig.simulate.preLoginFlow();
+	// await ig.simulate.preLoginFlow();
 	await ig.account.login(username, password);
 	// process.nextTick(async () => await ig.simulate.postLoginFlow());
 
