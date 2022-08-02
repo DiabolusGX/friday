@@ -5,7 +5,7 @@ const axios = require("axios");
 let reminded = false;
 let dailyStory = 0;
 const ig = new IgApiClient();
-const { username, password } = process.env;
+const { ig_username, ig_password } = process.env;
 
 const daily =
 	"https://cdn.discordapp.com/attachments/737967878719930439/1003568484283863110/6ojlo7.jpeg";
@@ -28,9 +28,9 @@ const post = async (action) => {
 	const videoResp = await axios.get(video, { responseType: "arraybuffer" });
 	const videoBuffer = Buffer.from(videoResp.data, "utf-8");
 
-	ig.state.generateDevice(username);
+	ig.state.generateDevice(ig_username);
 	// await ig.simulate.preLoginFlow();
-	await ig.account.login(username, password);
+	await ig.account.login(ig_username, ig_password);
 	// process.nextTick(async () => await ig.simulate.postLoginFlow());
 
 	switch (action) {
@@ -47,12 +47,12 @@ const post = async (action) => {
 					coverImage: dailyBuffer,
 				});
 				console.log(
-					`[${new Date().toISOString()}] Image story - https://instagram.com/stories/${username}/${
+					`[${new Date().toISOString()}] Image story - https://instagram.com/stories/${ig_username}/${
 						s1.media.pk
 					}`
 				);
 				console.log(
-					`[${new Date().toISOString()}] Video story - https://instagram.com/stories/${username}/${
+					`[${new Date().toISOString()}] Video story - https://instagram.com/stories/${ig_username}/${
 						s2.media.pk
 					}`
 				);
