@@ -110,14 +110,14 @@ setInterval(() => {
 	);
 
 	// video scheduler
-	if (day == 6 && !reminded) {
+	if (day == 5 && !reminded) {
 		post("post");
 		reminded = true;
 		console.info(
 			`[${new Date().toISOString()}] [interval] Published video post.`
 		);
 	}
-	if (day != 6 && reminded == true) {
+	if (day != 5 && reminded == true) {
 		console.info(
 			`[${new Date().toISOString()}] [interval] Reseted reminder.`
 		);
