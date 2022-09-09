@@ -126,12 +126,12 @@ setInterval(() => {
 
 	// story scheduler
 	if (dailyStory != day) {
-		// 1 min timeout
+		// 2 min timeout
 		// instagram rate limit on login on Friday
 		// login required for both post & story on same time on Friday
 		setTimeout(() => {
 			post("story");
-		}, 60000);
+		}, 2 * 60 * 1000);
 		dailyStory = day;
 		console.info(
 			`[${new Date().toISOString()}] [interval] Published stories.`
